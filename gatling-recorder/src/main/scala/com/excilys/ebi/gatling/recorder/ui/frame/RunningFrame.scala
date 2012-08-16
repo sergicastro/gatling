@@ -30,6 +30,7 @@ import grizzled.slf4j.Logging
 import javax.swing.{ JTextField, JSplitPane, JScrollPane, JPanel, JList, JLabel, JFrame, JButton, DefaultListModel, BorderFactory }
 import javax.swing.event.{ ListSelectionListener, ListSelectionEvent }
 
+
 class RunningFrame(controller: RecorderController) extends JFrame with Logging {
 
 	private val btnTag = new JButton("Add")
@@ -197,11 +198,17 @@ class RunningFrame(controller: RecorderController) extends JFrame with Logging {
 			case pauseInfo: PauseInfo =>
 				eventsInfo.addElement(pauseInfo)
 				eventsInfoJList.ensureIndexIsVisible(eventsInfo.getSize - 1)
+				// printEventInfo(pauseInfo)
 			case requestInfo: RequestInfo =>
 				eventsInfo.addElement(requestInfo)
 				eventsInfoJList.ensureIndexIsVisible(eventsInfo.getSize - 1)
+				printEventInfo(requestInfo)
 			case SSLInfo(uri) if (!hostsCertificate.contains(uri)) => hostsCertificate.addElement(uri)
 			case e => debug("dropping event " + e)
 		}
+	}
+
+	def printEventInfo(eventInfo: EventInfo) {
+        println(eventInfo)
 	}
 }

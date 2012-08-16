@@ -29,7 +29,8 @@ import com.excilys.ebi.gatling.recorder.http.ssl.{ SSLEngineFactory, FirstEventI
 
 object BootstrapFactory {
 
-	private val CHUNK_MAX_SIZE = 100 * 1024 * 1024; // 100Mo
+//	private val CHUNK_MAX_SIZE = 100 * 1024 * 1024; // 100Mo
+	private val CHUNK_MAX_SIZE = 1024 * 1024 * 1024; // 1GB
 
 	private val clientChannelFactory = new NioClientSocketChannelFactory
 

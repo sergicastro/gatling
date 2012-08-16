@@ -59,7 +59,13 @@ class RequestElement(val request: HttpRequest, val statusCode: Int, val simulati
 			val params = convertParamsFromJavaToScala(paramDecoder.getParameters)
 			(None, params)
 		} else {
-			val requestBody = new String(request.getContent.array, configuration.encoding)
+		    if (request.getContent.hasArray) {
+		        val requestBody = new String(request.getContent.array, configuration.encoding)
+		    } else {
+		        val array = new Array[Byte](request.getContent.readableBytes)
+		        request.getContent.getBytes(0, array)
+		        val requestBody = new String(array, configuration.encoding)
+		    }
 			(Some(requestBody), Nil)
 		}
 
